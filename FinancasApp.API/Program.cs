@@ -50,7 +50,7 @@ builder.Services.AddAuthentication(auth =>
 //definindo as permiss es de CORS para esta API
 builder.Services.AddCors(
     config => config.AddPolicy("DefaultPolicy", builder => {
-        builder.WithOrigins("http://localhost:4200")
+        builder.WithOrigins("http://localhost:4200", "http://sergiopeoplenet-001-site1.atempurl.com/")
                .AllowAnyMethod()
                .AllowAnyHeader();
     })
