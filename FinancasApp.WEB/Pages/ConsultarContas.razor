@@ -1,0 +1,63 @@
+﻿@page "/app/consultar-contas"
+
+<div class="card m-4">
+    <div class="card-body">
+
+        <h2>Consulta de contas</h2>
+        <p>Selecione o período de datas para consultar suas contas.</p>
+
+        <form>
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <input type="date" class="form-control"/>
+                </div>
+                <div class="col-md-3">
+                    <input type="date" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <input type="submit" class="btn btn-success" value="Pesquisar Contas"/>
+                </div>
+            </div>
+        </form>
+
+        <div class="table-responsive">
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th>Nome da conta</th>
+                        <th>Data</th>
+                        <th>Valor</th>
+                        <th>Tipo</th>
+                        <th>Categoria</th>
+                        <th>Operações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <button class="btn btn-outline-primary btn-sm me-1">Editar</button>
+                            <button class="btn btn-outline-danger btn-sm">Excluir</button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6">
+                            Quantidade de contas: 0
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+@code {
+
+}

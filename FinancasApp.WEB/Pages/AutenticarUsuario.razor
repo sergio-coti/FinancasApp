@@ -1,0 +1,59 @@
+﻿@* Página inicial do projeto *@
+@page "/"
+
+@using FinancasApp.WEB.Models
+
+<div class="card m-4">
+    <div class="card-body">
+
+        <h2>Autenticação de usuários</h2>
+        <p>Preencha suas credenciais de acesso para entrar no sistema.</p>
+
+        @* Formulário de autenticação *@
+        <EditForm Model="@model" OnValidSubmit="@OnSubmit">
+
+            @* Ativar as validações dos campos *@
+            <DataAnnotationsValidator/>
+
+            <div class="mb-3">
+                <label>Email de acesso:</label>
+                <InputText class="form-control" @bind-Value="model.Email"/>
+                <div class="text-danger">
+                    <ValidationMessage For="@(() => model.Email)"/>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label>Senha de acesso:</label>
+                <InputText class="form-control" type="password" @bind-Value="model.Senha"/>
+                <div class="text-danger">
+                    <ValidationMessage For="@(() => model.Senha)"/>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <input type="submit" class="btn btn-success" value="Acessar Sistema"/>
+            </div>
+
+            <div class="mb-3">
+                <NavLink href="app/criar-usuario">
+                    Não possui conta? <strong>Cadastre-se aqui!</strong>
+                </NavLink>
+            </div>
+
+        </EditForm>
+
+    </div>
+</div>
+
+@code {
+
+    //declarando um objeto da classe de modelo de dados
+    private AutenticarUsuarioModel model = new AutenticarUsuarioModel();
+
+    //função executada pelo botão SUBMIT do formulário
+    protected async Task OnSubmit()
+    {
+        
+    }
+}

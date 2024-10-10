@@ -1,0 +1,69 @@
+﻿@* Mapeamento da rota de navegação *@
+@page "/app/criar-usuario"
+
+@using FinancasApp.WEB.Models
+
+<div class="card m-4">
+    <div class="card-body">
+
+        <h2>Criação de usuários</h2>
+        <p>Preencha os campos para criar sua conta de usuário.</p>
+
+        @* Formulário de criação de usuário *@
+        <EditForm Model="@model" OnValidSubmit="@OnSubmit">
+
+            @* Ativar as validações dos campos *@
+            <DataAnnotationsValidator />
+
+            <div class="mb-3">
+                <label>Nome do usuário:</label>
+                <InputText class="form-control" @bind-Value="model.Nome" />
+                <div class="text-danger">
+                    <ValidationMessage For="@(() => model.Nome)" />
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label>Email de acesso:</label>
+                <InputText class="form-control" @bind-Value="model.Email" />
+                <div class="text-danger">
+                    <ValidationMessage For="@(() => model.Email)" />
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label>Senha de acesso:</label>
+                <InputText class="form-control" type="password" @bind-Value="model.Senha" />
+                <div class="text-danger">
+                    <ValidationMessage For="@(() => model.Senha)" />
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label>Confirme a sua senha:</label>
+                <InputText class="form-control" type="password" @bind-Value="model.SenhaConfirmacao" />
+                <div class="text-danger">
+                    <ValidationMessage For="@(() => model.SenhaConfirmacao)" />
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <input type="submit" class="btn btn-success" value="Realizar Cadastro" />
+            </div>
+
+        </EditForm>
+
+    </div>
+</div>
+
+@code {
+
+    //declarando um objeto da classe de modelo de dados
+    private CriarUsuarioModel model = new CriarUsuarioModel();
+
+    //função executada pelo botão SUBMIT do formulário
+    protected async Task OnSubmit()
+    {
+
+    }
+}
