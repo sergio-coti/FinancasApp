@@ -9,6 +9,20 @@
         <h2>Criação de usuários</h2>
         <p>Preencha os campos para criar sua conta de usuário.</p>
 
+        @* Exibir mensagem de sucesso e erro *@
+        @if(!string.IsNullOrEmpty(mensagemSucesso))
+        {
+            <div class="alert alert-success">
+                <strong>@mensagemSucesso</strong>
+            </div>
+        }
+        else if (!string.IsNullOrEmpty(mensagemErro))
+        {
+            <div class="alert alert-danger">
+                <strong>@mensagemErro</strong>
+            </div>
+        }
+
         @* Formulário de criação de usuário *@
         <EditForm Model="@model" OnValidSubmit="@OnSubmit">
 
@@ -56,14 +70,38 @@
     </div>
 </div>
 
+@inject HttpClient Http
+
 @code {
 
     //declarando um objeto da classe de modelo de dados
     private CriarUsuarioModel model = new CriarUsuarioModel();
 
+    //atributos
+    private string? mensagemSucesso;
+    private string? mensagemErro;
+
     //função executada pelo botão SUBMIT do formulário
     protected async Task OnSubmit()
     {
+        //limpando as mensagens
+        mensagemSucesso = string.Empty;
+        mensagemErro = string.Empty;
 
+        //executando o serviço de cadastro de usuário da API
+        var result = await Http.PostAsJsonAsync("api/usuarios/criar", model);
+
+        //verificando se a API retornou sucesso..
+        if(result.IsSuccessStatusCode)
+        {
+            mensagemSucesso = "Parabéns, sua conta foi criada com sucesso.";
+            model = new CriarUsuarioModel();
+        }
+        else
+        {
+            //ler a resposta de erro retornada pela API e exibir na página
+            var response = await result.Content.ReadFromJsonAsync<ErrorModel>();
+            mensagemErro = response.Message;
+        }
     }
 }
