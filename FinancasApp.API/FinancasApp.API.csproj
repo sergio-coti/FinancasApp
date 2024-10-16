@@ -14,6 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\FinancasApp.Domain\FinancasApp.Domain.csproj" />
     <ProjectReference Include="..\FinancasApp.Infra.Data\FinancasApp.Infra.Data.csproj" />
+    <ProjectReference Include="..\FinancasApp.Infra.Security\FinancasApp.Infra.Security.csproj" />
   </ItemGroup>
 
 </Project>

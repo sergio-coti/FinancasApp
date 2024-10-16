@@ -1,5 +1,6 @@
 ﻿using FinancasApp.Domain.Entities;
 using FinancasApp.Domain.Interfaces.Repositories;
+using FinancasApp.Infra.Data.Contexts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,27 +13,50 @@ namespace FinancasApp.Infra.Data.Repositories
     {
         public void Add(Categoria categoria)
         {
-            throw new NotImplementedException();
+            using (var dataContext = new DataContext())
+            {
+                dataContext.Add(categoria);
+                dataContext.SaveChanges();
+            }
         }
 
         public void Update(Categoria categoria)
         {
-            throw new NotImplementedException();
+            using (var dataContext = new DataContext())
+            {
+                dataContext.Update(categoria);
+                dataContext.SaveChanges();
+            }
         }
 
         public void Delete(Categoria categoria)
         {
-            throw new NotImplementedException();
+            using (var dataContext = new DataContext())
+            {
+                dataContext.Remove(categoria);
+                dataContext.SaveChanges();
+            }
         }
 
         public List<Categoria>? GetAll(Guid usuarioId)
         {
-            throw new NotImplementedException();
+            using (var dataContext = new DataContext())
+            {
+                return dataContext.Set<Categoria>()
+                    .Where(c => c.UsuarioId == usuarioId)
+                    .OrderBy(c => c.Nome)
+                    .ToList();
+            }
         }
 
         public Categoria? GetById(Guid categoriaId, Guid usuarioId)
         {
-            throw new NotImplementedException();
+            using (var dataContext = new DataContext())
+            {
+                return dataContext.Set<Categoria>()
+                    .Where(c => c.Id == categoriaId && c.UsuarioId == usuarioId)
+                    .FirstOrDefault();
+            }
         }
     }
 }

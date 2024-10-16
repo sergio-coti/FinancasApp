@@ -3,6 +3,7 @@ using FinancasApp.Domain.Dtos.Responses;
 using FinancasApp.Domain.Entities;
 using FinancasApp.Domain.Helpers;
 using FinancasApp.Domain.Interfaces.Repositories;
+using FinancasApp.Domain.Interfaces.Security;
 using FinancasApp.Domain.Interfaces.Services;
 using System;
 using System.Collections.Generic;
@@ -14,13 +15,15 @@ namespace FinancasApp.Domain.Services
 {
     public class UsuarioDomainService : IUsuarioDomainService
     {
-        //atributo
+        //atributos
         private readonly IUsuarioRepository _usuarioRepository;
+        private readonly ITokenSecurityService _tokenSecurityService;
 
         //método construtor para injeção de dependência (inicialização) do atributo
-        public UsuarioDomainService(IUsuarioRepository usuarioRepository)
+        public UsuarioDomainService(IUsuarioRepository usuarioRepository, ITokenSecurityService tokenSecurityService)
         {
             _usuarioRepository = usuarioRepository;
+            _tokenSecurityService = tokenSecurityService;
         }
 
         public AutenticarUsuarioResponseDto Autenticar(AutenticarUsuarioRequestDto dto)
@@ -39,8 +42,8 @@ namespace FinancasApp.Domain.Services
                 Nome = usuario.Nome,
                 Email = usuario.Email,
                 DataHoraAcesso = DateTime.Now,
-                DataHoraExpiracao = null, //falta gerar
-                Token = null //falta gerar
+                DataHoraExpiracao = DateTime.Now.AddHours(1),
+                Token = _tokenSecurityService.CreateToken(usuario)
             };
         }
 
